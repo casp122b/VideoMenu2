@@ -1,25 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using VideoAppBLL;
+using VideoAppEntity;
 
-namespace VideoMenuProject
+namespace VideoAppUI
 {
     class Program
     {
-
-        static List<Video> videos = new List<Video>();
-
-        static int id = 1;
+        static BLLFacade bllFacade = new BLLFacade(); 
         static void Main(string[] args)
         {
-            
+
 
             Video vid = new Video()
             {
-                Id = id++,
                 Name = "Sjove dyr"
             };
 
-            videos.Add(vid);
+            bllFacade.VideoService.Create(vid);
+
+            bllFacade.VideoService.Create(new Video()
+            {
+                Name = "Sjove kartofler"
+            });
 
             string[] videoMenuItems =
             {
@@ -75,23 +78,13 @@ namespace VideoMenuProject
                 Console.WriteLine("You did not type an id. Try again.");
             }
 
-            foreach (var video in videos)
-            {
-                if (video.Id == id)
-                {
-                    return video;
-                }
-            }
-            return null;
+            return bllFacade.VideoService.Get(id);
         }
 
         private static void DeleteVideo()
         {
             var videoFound = FindVideoById();
-            if(videoFound != null)
-            {
-                videos.Remove(videoFound);
-            }
+            bllFacade.VideoService.Delete(videoFound.Id);
         }
 
         private static void AddVideo()
@@ -99,9 +92,8 @@ namespace VideoMenuProject
             Console.WriteLine("Enter name: ");
             var name = Console.ReadLine();
 
-            videos.Add(new Video()
+            bllFacade.VideoService.Create(new Video()
             {
-                Id = id++,
                 Name = name
             });
         }
@@ -109,7 +101,7 @@ namespace VideoMenuProject
         private static void ReadVideos()
         {
             Console.Clear();
-            foreach (var video in videos)
+            foreach (var video in bllFacade.VideoService.GetAll())
             {
                 Console.WriteLine($"Id: { video.Id } Name: { video.Name }");
             }
