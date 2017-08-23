@@ -65,8 +65,15 @@ namespace VideoAppUI
         private static void EditVideo()
         {
             var video = FindVideoById();
-            Console.WriteLine("Name: ");
-            video.Name = Console.ReadLine();
+            if (video != null)
+            {
+                Console.WriteLine("Name: ");
+                video.Name = Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Video not found!");
+            }
         }
 
         public static Video FindVideoById()
@@ -85,6 +92,10 @@ namespace VideoAppUI
         {
             var videoFound = FindVideoById();
             bllFacade.VideoService.Delete(videoFound.Id);
+            var response = videoFound == null ?
+                "Video not found!" :
+                "The video was deleted!";
+            Console.WriteLine(response);
         }
 
         private static void AddVideo()
