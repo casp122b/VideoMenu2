@@ -69,11 +69,13 @@ namespace VideoAppUI
             {
                 Console.WriteLine("Name: ");
                 video.Name = Console.ReadLine();
+                bllFacade.VideoService.Update(id);
             }
             else
             {
                 Console.WriteLine("Video not found!");
             }
+            
         }
 
         public static Video FindVideoById()
