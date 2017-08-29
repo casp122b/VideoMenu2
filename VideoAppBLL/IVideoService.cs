@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VideoAppEntity;
+﻿using System.Collections.Generic;
+using VideoAppBLL.BO;
 
 namespace VideoAppBLL
 {
     public interface IVideoService
     {
-        Video Create(Video vid);
-        List<Video> GetAll();
-        Video Get(int Id);
-        Video Update(Video vid);
-        Video Delete(int Id);
+        VideoBO Create(VideoBO vid);
+        List<VideoBO> GetAll();
+        VideoBO Get(int Id);
+        VideoBO Update(VideoBO vid);
+        VideoBO Delete(int Id);
     }
 }

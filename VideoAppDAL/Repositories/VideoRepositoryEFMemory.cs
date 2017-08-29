@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VideoAppDAL.Context;
-using VideoAppEntity;
+using VideoAppDAL.Entities;
 
 namespace VideoAppDAL.Repositories
 {

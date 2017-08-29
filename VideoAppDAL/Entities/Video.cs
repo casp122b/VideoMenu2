@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VideoAppEntity
+﻿
+namespace VideoAppDAL.Entities
 {
     public class Video
     {

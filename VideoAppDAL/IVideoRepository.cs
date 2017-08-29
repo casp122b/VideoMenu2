@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VideoAppEntity;
+﻿using System.Collections.Generic;
+using VideoAppDAL.Entities;
 
 namespace VideoAppDAL
 {

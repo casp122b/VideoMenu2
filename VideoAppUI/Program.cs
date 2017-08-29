@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using VideoAppBLL;
-using VideoAppEntity;
+using VideoAppBLL.BO;
 
 namespace VideoAppUI
 {
     class Program
     {
-        static BLLFacade bllFacade = new BLLFacade(); 
+        static BLLFacade bllFacade = new BLLFacade();
+        
         static void Main(string[] args)
         {
-
-
-            Video vid = new Video()
+            var vid1 = new VideoBO()
             {
                 Name = "Sjove dyr"
             };
 
-            bllFacade.VideoService.Create(vid);
+            bllFacade.VideoService.Create(vid1);
 
-            bllFacade.VideoService.Create(new Video()
+            bllFacade.VideoService.Create(new VideoBO()
             {
                 Name = "Sjove kartofler"
             });
@@ -69,7 +67,7 @@ namespace VideoAppUI
             {
                 Console.WriteLine("Name: ");
                 video.Name = Console.ReadLine();
-                bllFacade.VideoService.Update(id);
+                bllFacade.VideoService.Update(video);
             }
             else
             {
@@ -78,7 +76,7 @@ namespace VideoAppUI
             
         }
 
-        public static Video FindVideoById()
+        public static VideoBO FindVideoById()
         {
             Console.WriteLine("Type in video id: ");
             int id;
@@ -105,7 +103,7 @@ namespace VideoAppUI
             Console.WriteLine("Enter name: ");
             var name = Console.ReadLine();
 
-            bllFacade.VideoService.Create(new Video()
+            bllFacade.VideoService.Create(new VideoBO()
             {
                 Name = name
             });
