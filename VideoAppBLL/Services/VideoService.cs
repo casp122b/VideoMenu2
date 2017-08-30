@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using VideoAppBLL.BO;
+using VideoAppBLL.Converters;
 using VideoAppDAL;
 using VideoAppDAL.Entities;
 
@@ -9,6 +10,9 @@ namespace VideoAppBLL.Services
 {
     class VideoService : IVideoService
     {
+
+        VideoConverter vidCon = new VideoConverter();
+
         DALFacade facade;
         public VideoService(DALFacade facade)
         {
@@ -19,9 +23,9 @@ namespace VideoAppBLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
-                var newVid = uow.VideoRepository.Create(Convert(vid));
+                var newVid = uow.VideoRepository.Create(vidCon.Convert(vid));
                 uow.Complete();
-                return Convert(newVid);
+                return vidCon.Convert(newVid);
             }; 
         }
 
@@ -31,7 +35,7 @@ namespace VideoAppBLL.Services
             {
                 var newVid = uow.VideoRepository.Delete(Id);
                 uow.Complete();
-                return Convert(newVid);
+                return vidCon.Convert(newVid);
             };
         }
 
@@ -39,7 +43,7 @@ namespace VideoAppBLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
-                return Convert(uow.VideoRepository.Get(Id));
+                return vidCon.Convert(uow.VideoRepository.Get(Id));
             };
         }
 
@@ -48,7 +52,7 @@ namespace VideoAppBLL.Services
             using (var uow = facade.UnitOfWork)
             {
                 //return uow.VideoRepository.GetAll();
-                return uow.VideoRepository.GetAll().Select(v => Convert(v)).ToList();
+                return uow.VideoRepository.GetAll().Select(v => vidCon.Convert(v)).ToList();
 
             };
         }
@@ -64,26 +68,10 @@ namespace VideoAppBLL.Services
                 }
                 videoFromDB.Name = vid.Name;
                 uow.Complete();
-                return Convert(videoFromDB);
+                return vidCon.Convert(videoFromDB);
             }
         }
 
-        private Video Convert(VideoBO vid)
-        {
-            return new Video()
-            {
-                Id = vid.Id,
-                Name = vid.Name
-            };
-        }
-
-        private VideoBO Convert(Video vid)
-        {
-            return new VideoBO()
-            {
-                Id = vid.Id,
-                Name = vid.Name
-            };
-        }
+        
     }
 }
